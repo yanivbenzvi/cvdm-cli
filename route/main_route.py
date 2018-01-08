@@ -1,4 +1,4 @@
-from model import singIn, signup, sqllite, cliArgument, jsonLoad, outputJson
+from model import singIn, signup, sqllite, cliArgument, jsonLoad, outputJson, validate_input
 from model import global_var
 from route import hr_route, ca_route
 from api import mockaroo
@@ -30,7 +30,10 @@ def default_route():
             global_var.main_output["add_error"]("user name or password are missing")
     elif cliArgument.args.sign_up:  # signup option
         if user_name and user_password:
-            signup.sign_up(user_name, user_password)
+            if not  validate_input.check_password_username(user_name,user_password):
+                global_var.main_output["add_error"]("you need put username and password 6 to 8 chars")
+            else:
+                signup.sign_up(user_name, user_password)
         else: # if user or password are missing
             global_var.main_output["add"]("status", 2)
             global_var.main_output["add_error"]("user name and password must entry")

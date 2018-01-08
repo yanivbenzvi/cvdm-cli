@@ -11,7 +11,7 @@ def check_int(input):
     return False
 
 #check if
-def check_password(password,user):
+def check_password_username(password,user):
     if len(password)>=6 and len(password)<=8 and len(user)>=6 and len(user)<=8:
         return True
     return False
@@ -20,9 +20,8 @@ def check_mail(input):
         return True
     return False
 def check_phone(input):
-    if type(int(input))==type(int):
-        if len(input) == 10:
-            return True
+    if len(input) == 10:
+        return True
     return False
 def check_full_name(input):
     if " " in input:
