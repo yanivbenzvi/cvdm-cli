@@ -1,7 +1,6 @@
 from model import cliArgument
 from route import main_route
 
-
 def driver():
     cliArgument.arg_command()
     main_route.default_route()
