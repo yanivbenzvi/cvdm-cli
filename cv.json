@@ -1,7 +1,7 @@
 {
-	"name": "YoureFullName",
-	"email": "youreEmail@gmail.com",
-	"phoneNumber": "123",
+	"name": "YoureF ullName",
+	"email": "youre@Emailgmail.com",
+	"phoneNumber": "1234567891",
 	"sortAcademic": {
 		"1": {
 			"post_doctoral": 1
@@ -20,15 +20,15 @@
 		"education": {
 			"1": {
 				"date": "2015",
-				"description": "field description"
+				"description": 1
 			},
 			"2": {
 				"date": "2014",
-				"description": "field description"
+				"description": 2
 			},
 			"3": {
 				"date": "2013",
-				"description": "field description"
+				"description": 3
 			}
 		},
 		"researchersAndProject": {

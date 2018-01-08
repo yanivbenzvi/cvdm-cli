@@ -1,8 +1,24 @@
-from model import jsonLoad, global_var, sqllite
+from model import jsonLoad, global_var, sqllite, validate_input
 from api import cloudinary
 import json
 
 
+
+def candidate_educational_background():
+    #### hackton 3 indvidual task ############33
+    data = []
+    data.append("university 1")
+    data.append("university 2")
+    data.append("university 3")
+    data.append("university 4")
+    data.append("university 5")
+    return data
+def candidate_educational_print():
+    #### hackton 3 indvidual task ############33
+    i = 0
+    for x in candidate_educational_background():
+        global_var.main_output["add_log"]("option {0} for - {1}".format(i,x))
+        i = i + 1
 def export_json_file():
     json_data = {'notes': {}, 'image': 'https://imagelocation',
                  'expAndSkill': {'specillaztion': {}, 'previousCareer': {}},
@@ -13,7 +29,6 @@ def export_json_file():
                  'name': 'YoureFullName'}
     query = "SELECT * FROM `candidateInformation` WHERE `mid` == '{0}'".format(global_var.user_id)
     row = sqllite.query(query).fetchone()
-    print(row[1])
     json_data['name'] = row[1]
     json_data['email'] = row[2]
     json_data['phoneNumber'] = row[3]
@@ -24,7 +39,6 @@ def export_json_file():
     tmp = {}
     i = 1
     for row in sqllite.query(query).fetchall():
-        print(row[2])
         tmp[i] = {}
         tmp[i]["date"] = row[1]
         tmp[i]["description"] = row[2]
@@ -35,7 +49,6 @@ def export_json_file():
     tmp = {}
     i = 1
     for row in sqllite.query(query).fetchall():
-        print(row[2])
         tmp[i] = {}
         tmp[i]["date"] = row[1]
         tmp[i]["description"] = row[2]
@@ -46,7 +59,6 @@ def export_json_file():
     tmp = {}
     i = 1
     for row in sqllite.query(query).fetchall():
-        print(row[2])
         tmp[i] = {}
         tmp[i]["date"] = row[1]
         tmp[i]["description"] = row[2]
@@ -57,7 +69,6 @@ def export_json_file():
     tmp = {}
     i = 1
     for row in sqllite.query(query).fetchall():
-        print(row[2])
         tmp[i] = {}
         tmp[i]["date"] = row[1]
         tmp[i]["description"] = row[2]
@@ -68,7 +79,6 @@ def export_json_file():
     tmp = {}
     i = 1
     for row in sqllite.query(query).fetchall():
-        print(row[2])
         tmp[i] = {}
         tmp[i]["date"] = row[1]
         tmp[i]["description"] = row[2]
@@ -98,9 +108,9 @@ def empty_json_template():
                                                '2': {'description': 'field description', 'date': '2014'}}},
             'sortAcademic': {'1': {'post_doctoral': 1}, '4': {'fellowship_grants': 0}, '3': {'high_level_research': 0},
                              '2': {'teaching_in_postscenodry': 0}}, 'phoneNumber': '', 'AcadmicHistory': {
-            'education': {'1': {'description': 'field description', 'date': '2015'},
-                          '3': {'description': 'field description', 'date': '2013'},
-                          '2': {'description': 'field description', 'date': '2014'}},
+            'education': {'1': {'description': 0, 'date': '2015'},
+                          '3': {'description': 0, 'date': '2013'},
+                          '2': {'description': 0, 'date': '2014'}},
             'researchersAndProject': {'1': {'description': 'field description', 'date': '2015'},
                                       '3': {'description': 'field description', 'date': '2013'},
                                       '2': {'description': 'field description', 'date': '2014'}}},
@@ -120,7 +130,16 @@ def insert_candidate_information(data, id = None):
     """"
     function storing data in the database
     """
-    ######################################## delete old record ############################################
+    if (not validate_input.check_full_name(data['name'])):
+        global_var.main_output["add_error"]("the full name need to be with first name,space and last name")
+        return
+    if (not validate_input.check_phone(data['phoneNumber'])):
+        global_var.main_output["add_error"]("the phone number need to be 10 digits")
+        return
+    if (not validate_input.check_mail(data['email'])):
+        global_var.main_output["add_error"]("the email is not valid")
+        return
+            ######################################## delete old record ############################################
     if id == None:
         id = global_var.user_id
     query = "DELETE FROM `education` WHERE `mid`== {0}".format(id)
