@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #check if we have string
 def check_str(input):
     if type(input)==type(str):
@@ -62,4 +61,3 @@ def check_full_name(input):
     if " " in input:
         return True
     return False
->>>>>>> integration
